@@ -1,13 +1,13 @@
 "using strict";
 
-const Pregunta1 = function (palabra_) {
-  var palabra = palabra_.toLowerCase();
-  for (var i = 0; i < palabra.length; i++) {
-    if (palabra.indexOf(palabra[i]) !== palabra.lastIndexOf(palabra[i])) {
-      return false;
+const Pregunta1 = function (palabra) {
+  while(palabra != "") {
+    if (palabra.indexOf(palabra[0]) === palabra.lastIndexOf(palabra[0])) {
+      return palabra[0];
     }
+    palabra = palabra.split(palabra[0]).join("");
   }
-  return true;
+  return false;
 };
 
 const swap = (i, j, arr) => {
@@ -27,6 +27,7 @@ const Pregunta2 = function (arr) {
     }
     if (no_swap == true) break;
   }
+  return arr;
 };
 
 const Pregunta3 = function (arr) {
@@ -46,10 +47,7 @@ const Pregunta3 = function (arr) {
     let i = 0;
     let j = 0;
     for (let k = 0; k < left.length + right.length; k++) {
-      if (
-        (left[i] < right[j] || right[j] == undefined) &&
-        left[i] != undefined
-      ) {
+      if (left[i] < right[j] || right[j] == undefined) {
         result.push(left[i]);
         i += 1;
       } else {
@@ -117,20 +115,21 @@ class Vector {
   multiByScalar(scalar) {
     return new Vector(this.x * scalar, this.y * scalar, this.z * scalar);
   }
+  print_values() {
+    return `x: ${this.x}, y: ${this.y}, z: ${this.z}`;
+  }
 }
 
 const Pregunta5 = function (vector1, vector2) {
-  return `suma: ${vector1.sum(vector2)}\nresta: ${vector1.sub(
+  return `suma: ${vector1.sum(vector2).print_values()}\nresta: ${vector1.sub(
     vector2
-  )}\nmagnitude vec1: ${vector1.magnitude()} magnitude vec2: ${vector2.magnitude()}\nscalar vec1: ${vector1.multiByScalr(
-    2
-  )} scalar vec2: ${vector.multiByScalar(5)}`;
+  ).print_values()}\nmagnitude vec1: ${vector1.magnitude()} magnitude vec2: ${vector2.magnitude()}\nscalar vec1: ${vector1.multiByScalar(2).print_values()} scalar vec2: ${vector2.multiByScalar(5).print_values()} \n`;
 };
 
 const Pregunta6 = function (a, b) {
   let current = 0;
   if (a > b) {
-    let current = b;
+    current = b;
   } else {
     current = a;
   }
@@ -150,6 +149,7 @@ const Pregunta7 = function (vector1, vector2) {
   if (x + y + z == 0) {
     return true;
   }
+  return false;
 };
 
 const Pregunta8 = function (palabra) {
@@ -190,60 +190,67 @@ const Pregunta10 = function (arr) {
 };
 
 const main = function () {
-  let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  console.log("\n--------- Pregunta 1 ---------\n");
+  console.log(`abacddbec: \t${Pregunta1("abacddbec")}`);
+  console.log(`jkljljj: \t${Pregunta1("jkljljj")}`);
+  console.log(`123123111: \t${Pregunta1("123123111")}`);
 
-  console.log("--------- Pregunta 1");
-  console.log(Pregunta1("abcabcabc"));
-  console.log(Pregunta1("jkljkljj"));
-  console.log(Pregunta1("123123111"));
+  console.log("\n--------- Pregunta 2 ---------\n");
+  console.log(`[1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10]: \t${Pregunta2([1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10])}`);
+  console.log(`["f", "e", "g", "i", "r", "p", "q"]: \t${Pregunta2(["f", "e", "g", "i", "r", "p", "q"])}`);
+  console.log(`[132, 135, 753, 924, 472, 482, 562]: \t${Pregunta2([132, 135, 753, 924, 472, 482, 562])}`);
 
-  console.log("--------- Pregunta 2");
-  console.log(Pregunta2([1, 4, 6, 2, 6, 2, 6, 8, 4]));
-  console.log(Pregunta2(["f", "e", "g", "i", "r", "p", "q"]));
-  console.log(Pregunta2([132, 135, 753, 924, 472, 482]));
+  console.log("\n--------- Pregunta 3 ---------\n");
+  console.log(`[1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10]: \t${Pregunta3([1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10])}`);
+  console.log(`["f", "e", "g", "i", "r", "p", "q"]: \t${Pregunta3(["f", "e", "g", "i", "r", "p", "q"])}`);
+  console.log(`[132, 135, 753, 924, 472, 482, 563]: \t${Pregunta3([132, 135, 753, 924, 472, 482, 562])}`);
 
-  console.log("--------- Pregunta 3");
-  console.log(Pregunta3([1, 4, 6, 2, 6, 2, 6, 8, 4]));
-  console.log(Pregunta3(["f", "e", "g", "i", "r", "p", "q"]));
-  console.log(Pregunta3([132, 135, 753, 924, 472, 482]));
+  console.log("\n--------- Pregunta 4 ---------\n");
+  console.log( `[1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10]: \t
+    ${Pregunta4_1([1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10])}  
+    ${Pregunta4_2([1, 4, 6, 2, 6, 2, 6, 8, 4, 4, 10])}`);
+  console.log( `["f", "e", "g", "i", "r", "p", "q"] \t
+    ${Pregunta4_1(["f", "e", "g", "i", "r", "p", "q"])} 
+    ${Pregunta4_2(["f", "e", "g", "i", "r", "p", "q"])}`);
+  console.log(`[132, 135, 753, 924, 472, 482, 563] \t
+    ${Pregunta4_1([132, 135, 753, 924, 472, 482, 563])} 
+    ${Pregunta4_2([132, 135, 753, 924, 472, 482, 563])}`);
 
-  console.log("--------- Pregunta 4");
-  console.log(
-    Pregunta4_1([1, 4, 6, 2, 6, 2, 6, 8, 4]),
-    Pregunta4_2([1, 4, 6, 2, 6, 2, 6, 8, 4])
-  );
-  console.log(
-    Pregunta4_1(["f", "e", "g", "i", "r", "p", "q"]),
-    Pregunta4_2(["f", "e", "g", "i", "r", "p", "q"])
-  );
-  console.log(
-    Pregunta4_1([132, 135, 753, 924, 472, 482]),
-    Pregunta4_2([132, 135, 753, 924, 472, 482])
-  );
-
-  console.log("--------- Pregunta 5");
+  console.log("\n--------- Pregunta 5 ---------\n");
   let vector1_1 = new Vector(3, 4, 5);
   let vector2_1 = new Vector(6, 7, 8);
-  let vector1_2 = new Vector(1, 4, 4);
-  let vector2_2 = new Vector(6, 7, 8);
+  let vector1_2 = new Vector(2, -3, -1);
+  let vector2_2 = new Vector(-5, -10/3, 0);
   let vector1_3 = new Vector(3, 4, 5);
   let vector2_3 = new Vector(6, 7, 8);
-  console.log(Pregunta5());
+  console.log(`Vector1: ${vector1_1.print_values()} Vector2: ${vector2_1.print_values()} \n${Pregunta5(vector1_1, vector2_1)}`);
+  console.log(`Vector1: ${vector1_2.print_values()} Vector2: ${vector2_2.print_values()} \n${Pregunta5(vector1_2, vector2_2)}`);
+  console.log(`Vector1: ${vector1_3.print_values()} Vector2: ${vector2_3.print_values()} \n${Pregunta5(vector1_3, vector2_3)}`);
 
-  console.log("--------- Pregunta 6");
-  console.log(Pregunta6());
+  console.log("\n--------- Pregunta 6 ---------\n");
+  console.log(`a: 33 b: 45     \t${Pregunta6(33, 45)}`);
+  console.log(`a: 26 b: 94     \t${Pregunta6(26, 94)}`);
+  console.log(`a: 2016 b: 3462 \t${Pregunta6(2016, 3462)}`);
 
-  console.log("--------- Pregunta 7");
-  console.log(Pregunta7());
+  console.log("\n--------- Pregunta 7 ---------\n");
+  console.log(`Vector1: ${vector1_1.print_values()} Vector2: ${vector2_1.print_values()} \n${Pregunta7(vector1_1, vector2_1)}`);
+  console.log(`Vector1: ${vector1_2.print_values()} Vector2: ${vector2_2.print_values()} \n${Pregunta7(vector1_2, vector2_2)}`);
+  console.log(`Vector1: ${vector1_3.print_values()} Vector2: ${vector2_3.print_values()} \n${Pregunta7(vector1_3, vector2_3)}`);
 
-  console.log("--------- Pregunta 8");
-  console.log(Pregunta8());
+  console.log("\n--------- Pregunta 8 ---------\n");
+  console.log(`Javascript es divertido \t${Pregunta8("Javascript es divertido")}`);
+  console.log(`Octavio Navarro         \t${Pregunta8("Octavio Navarro")}`);
+  console.log(`Queremos regresar a c++ \t${Pregunta8("Queremos regresar a c++")}`);
+  
+  console.log("\n--------- Pregunta 9 ---------\n");
+  console.log(`Num 12: \t${Pregunta9(12)}`);
+  console.log(`Num 135: \t${Pregunta9(135)}`);
+  console.log(`Num 31: \t${Pregunta9(31)}`);
 
-  console.log("--------- Pregunta 9");
-  console.log(Pregunta9());
-
-  console.log("--------- Pregunta 10");
-  console.log(Pregunta10());
+  console.log("\n--------- Pregunta 10 ---------\n");
+  console.log(`[1, 0, 1, 1, 0, 0]:                  \t${Pregunta10([1, 0, 1, 1, 0, 0])}`);
+  console.log(`["f", "e", "g", "f", "e", "e", "g"]: \t${Pregunta10(["f", "e", "g", "f", "e", "e", "g"])}`);
+  console.log(`[0, 0, 0, 0, 0]:                     \t${Pregunta10([0, 0, 0, 0, 0])}`);
 };
 
 main();
